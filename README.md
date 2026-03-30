@@ -409,6 +409,31 @@
 
 ---
 
+## 進階功能
+
+### 研究模式
+
+創建人格時，AI 不只會從本地素材庫挑選材料，還可以：
+
+- **上網搜尋專業知識**：例如你要做一個「洗錢防治顧問」，AI 會搜尋相關法規和實務知識
+- **分析你提供的網頁**：給 AI 一個網址，它會爬取內容作為人格設計的參考
+- **讀取你上傳的文件**：把你的 SOP、FAQ、培訓資料丟給 AI，它會從中提煉人格規則
+- **搜尋更多開源素材**：如果現有的 49 張卡片不夠用，AI 會去找其他開源 AI skill 系統
+
+所有搜尋到的知識都會轉化成人格的判斷力和規則，不是直接貼給你看。
+
+### 安裝
+
+```bash
+git clone https://github.com/LightingArb/mix_skill_people
+cd mix_skill_people
+bash setup.sh
+```
+
+安裝完成後，打開 Claude Code，對 AI 說「創建人格」就能開始。
+
+---
+
 ## 技術版說明
 
 如果你想看這個專案的工程結構、資料格式與輸出內容，下面是技術版摘要。
@@ -418,31 +443,41 @@
 ```text
 .
 ├── README.md
-├── generate_skill_extraction.py
-├── skill-extraction-spec.md
-├── skill-extraction-analysis.md
-├── skill-persona.md
+├── 指令.md
+├── package.json
+├── setup.sh
+├── 人格資料夾/
+│   ├── .gitkeep
+│   └── 001_xxx_xxx.md
 └── skill-extraction/
-    ├── repos/
-    │   ├── gstack/          # 上游來源，submodule
-    │   └── superpowers/     # 上游來源，submodule
-    ├── raw-cards/
-    │   ├── gstack/
-    │   └── superpowers/
     ├── 00_總索引.md
     ├── 01_分類彙整.md
-    └── raw-cards.zip
+    ├── external-repos/
+    │   └── .gitkeep
+    ├── generate_skill_extraction.py
+    ├── skill-extraction-analysis.md
+    ├── skill-extraction-spec.md
+    ├── skill-persona.md
+    └── raw-cards/
+        ├── gstack/
+        └── superpowers/
 ```
 
 ### 核心檔案
 
-- `generate_skill_extraction.py`
+- `指令.md`
+  - 客戶實際操作入口，AI 讀這份就知道怎麼合成人格、修改人格、比較人格與啟動研究模式
+- `package.json`
+  - 預裝 Playwright 的 Node 設定，讓 clone 完的 repo 可以直接安裝研究工具
+- `setup.sh`
+  - 一鍵安裝腳本，會安裝 Playwright chromium 與 `chrome-devtools-mcp`
+- `skill-extraction/generate_skill_extraction.py`
   - 產生器腳本，負責掃描來源 repo、整理內容、輸出卡片與索引
-- `skill-extraction-spec.md`
+- `skill-extraction/skill-extraction-spec.md`
   - 本次抽取工作的規格與欄位定義
-- `skill-extraction-analysis.md`
+- `skill-extraction/skill-extraction-analysis.md`
   - 對 raw data 的二次分析，說明哪些技能最有整合價值
-- `skill-persona.md`
+- `skill-extraction/skill-persona.md`
   - 基於抽取與分析後形成的整合式 persona / framework 草案
 - `skill-extraction/raw-cards/`
   - 研究用核心資料集，每張卡對應一份來源文件
@@ -450,13 +485,15 @@
   - 全部卡片的統計、清單與跨 repo 關聯矩陣
 - `skill-extraction/01_分類彙整.md`
   - 依分類標記重新整理的總表
+- `skill-extraction/external-repos/`
+  - 研究時臨時 clone 額外 skill repo 的地方，不污染根目錄
 
 ### 怎麼看結果
 
 - [skill-extraction/00_總索引.md](./skill-extraction/00_總索引.md)
 - [skill-extraction/01_分類彙整.md](./skill-extraction/01_分類彙整.md)
-- [skill-extraction-analysis.md](./skill-extraction-analysis.md)
-- [skill-persona.md](./skill-persona.md)
+- [skill-extraction/skill-extraction-analysis.md](./skill-extraction/skill-extraction-analysis.md)
+- [skill-extraction/skill-persona.md](./skill-extraction/skill-persona.md)
 
 ### 想查單張卡片
 
@@ -466,17 +503,10 @@
 ### 想重跑流程
 
 ```bash
-git clone --recurse-submodules https://github.com/LightingArb/mix_skill_people
-cd mix_skill_people
-python generate_skill_extraction.py
+python skill-extraction/generate_skill_extraction.py
 ```
 
-如果是已經 clone 下來的工作目錄：
-
-```bash
-git submodule update --init --recursive
-python generate_skill_extraction.py
-```
+這支腳本是研究用工具，不是客戶日常使用入口。若要重跑完整抽取流程，需另外準備來源 repo；一般使用只要看 `指令.md` 並直接創建人格即可。
 
 ---
 
