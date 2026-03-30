@@ -1,6 +1,0 @@
-[submodule "skill-extraction/repos/gstack"]
-	path = skill-extraction/repos/gstack
-	url = https://github.com/garrytan/gstack
-[submodule "skill-extraction/repos/superpowers"]
-	path = skill-extraction/repos/superpowers
-	url = https://github.com/obra/superpowers
