@@ -1,5 +1,27 @@
 from __future__ import annotations
 
+# === REGISTERED_REPOS ===
+# 本標記由分解熔爐 Step 0 比對用，手動維護。
+# 格式：每行一個 repo name，與 config.json 的 name 欄位一致。
+# 最後更新：2026-03-31
+REGISTERED_REPOS = [
+    "gstack",
+    "superpowers",
+    "oh-my-claudecode",
+    "get-shit-done",
+    "ui-ux-pro-max-skill",
+    "pm-skills",
+    "marketingskills",
+    "anthropics-skills",
+    "openai-skills",
+    "vercel-agent-skills",
+    "awesome-startup",
+    "web-access",
+    "gcloud-mcp",
+    "chrome-devtools-mcp",
+]
+# === END REGISTERED_REPOS ===
+
 import hashlib
 import json
 import re
