@@ -455,6 +455,18 @@ gstack + superpowers 使用 §8-4 的 CATEGORY_OVERRIDES。其他 repo 用關鍵
 | 標記含「工具程序型」或「元技能型」 | → 補強層（低優先） |
 | `low_content` 卡片 | → 補強層（最低優先） |
 
+#### 步驟 2-3b：核心層不足時自動提升
+
+如果步驟 2-3 完成後核心層不足 6 張，從補強層中按以下條件自動提升：
+
+**提升條件（滿足任一即可）：**
+- `核心思考框架` ≥ 8 行
+- `核心行為規則`（必須做 + 禁止做）合計 ≥ 15 條
+
+**提升順序：** 按 framework 行數 + behavior 條數的總和排序，從最高開始提升，直到核心層達到 6 張或補強層沒有符合條件的卡片。
+
+**如果提升後仍不足 6 張 → 觸發停止條件（見 §4）。**
+
 #### 步驟 2-4：數量裁切
 
 | 層 | 下限 | 上限 | 超出處理 | 不足處理 |
@@ -656,17 +668,17 @@ gstack + superpowers 使用 §8-4 的 CATEGORY_OVERRIDES。其他 repo 用關鍵
 
 | 編號 | 名稱 | status | data/ 檔案 | 備註 |
 |------|------|--------|-----------|------|
-| 101 | 通用核心型 | 模板（只複製）| — | 批次時自動複製 §6-1，不進入編譯流程 |
-| 102 | 產品策略型 | 待編譯 | — | |
-| 103 | 工程施工型 | 待編譯 | — | |
-| 104 | UI/UX 設計型 | 待編譯 | — | |
-| 201 | 行銷成長型 | 待編譯 | — | |
-| 202 | 資安審計型 | 待編譯 | — | |
+| 101 | 通用核心型 | 模板（只複製）| ✓ | 批次時自動複製 §6-1，不進入編譯流程 |
+| 102 | 產品策略型 | 已編譯 | ✓ | 2026-03-31 |
+| 103 | 工程施工型 | 已編譯 | ✓ | 2026-03-31 |
+| 104 | UI/UX 設計型 | 已編譯 | ✓ | 2026-03-31 |
+| 201 | 行銷成長型 | 已編譯 | ✓ | 2026-03-31 |
+| 202 | 資安審計型 | 已編譯 | ✓ | 2026-03-31 |
 | 203 | 多Agent協作型 | draft-disabled | — | agent=0 |
-| 204 | 創業顧問型 | 待編譯 | — | |
-| 211 | 數據分析型 | 待編譯 | — | skill-pack |
-| 212 | PM 執行型 | 待編譯 | — | |
-| 213 | 寫作溝通型 | 待編譯 | — | skill-pack |
+| 204 | 創業顧問型 | 已編譯 | ✓ | 2026-03-31 |
+| 211 | 數據分析型 | 已編譯 | ✓ | skill-pack, 2026-03-31 |
+| 212 | PM 執行型 | 已編譯 | ✓ | 2026-03-31 |
+| 213 | 寫作溝通型 | 已編譯 | ✓ | skill-pack, 2026-03-31 |
 
 ---
 
@@ -1154,10 +1166,9 @@ estimated_size: ~20,000 字
 **定位：** 產品定義 + 市場分析 + GTM + 商業模式。一站式商業規劃。
 
 **素材來源：**
-- pm-skills：product-vision、value-proposition、business-model、ideal-customer-profile、market-sizing、prioritization-frameworks、opportunity-solution-tree、brainstorm-okrs、competitive-battlecard
-- marketingskills：growth-strategy、content-strategy、customer-research、pricing-strategy、launch-strategy、gtm-strategy
+- pm-skills：value-proposition、opportunity-solution-tree、product-vision、business-model、ideal-customer-profile、competitive-battlecard、brainstorm-okrs、gtm-strategy、market-sizing
+- marketingskills：content-strategy、customer-research、pricing-strategy、launch-strategy
 - gstack：office-hours、plan-ceo-review
-- awesome-startup：General、Marketing Sales & Metrics、Venture Capital
 
 **不做什麼：**
 1. 不寫程式（那是 #103 的事）
@@ -1272,7 +1283,10 @@ landing: 獨立人格保留
 ```
 
 **定位：** 威脅建模 + OWASP + 供應鏈 + AI 安全審計。
-**素材：** gstack/cso + openai security 系列。
+**素材來源：**
+- gstack：cso
+- openai-skills：security-best-practices、security-threat-model、security-ownership-map
+
 **不做：** 不主導日常開發流程，不在非安全議題時主動介入。
 
 > 完整人格內容由 §5-B 流程編譯後輸出到 data/preset-personas/
@@ -1348,7 +1362,9 @@ landing: 可排第二批
 ```
 
 **定位：** sprint planning + retro + stakeholder + OKR。
-**素材：** pm-skills execution 子集。
+**素材來源：**
+- pm-skills：stakeholder-map、wwas、create-prd、retro、pre-mortem、brainstorm-okrs、summarize-meeting
+
 **不做：** 不做產品策略（那是 #102），不做工程施工（那是 #103）。
 
 > 完整人格內容由 §5-B 流程編譯後輸出到 data/preset-personas/
